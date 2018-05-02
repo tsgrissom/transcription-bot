@@ -4,6 +4,7 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 const PastebinAPI = require('pastebin-js');
 
+let config;
 let pastebinKey = '';
 let botKey = '';
 let pastebin = null;
@@ -47,23 +48,21 @@ client.on('message', message => {
 });
 
 try {
-    config = yaml.safeLoad(fs.readFileSync('configuration.yml', 'utf8'));
+    config = yaml.safeLoad(fs.readFileSync('configuration.yml', 'utf8'))
 
     if (typeof config === 'undefined') {
         console.log('You must set up a configuration.yml!');
-
-        process.exit(1);
-    }  else {
+    } else {
         pastebinKey = config.pastebinKey;
         botKey = config.botKey;
+
+        client.login(botKey)
+            .then(() => {
+                pastebin = new PastebinAPI(pastebinKey);
+
+                console.log('Bot ready!')
+            });
     }
 } catch (e) {
-    console.log(e);
+    console.log('Could not load configuration.yml, please model yours after configuration.example.yml');
 }
-
-client.login(config.botKey)
-    .then(() => {
-        pastebin = new PastebinAPI(pastebinKey);
-
-        console.log('Bot ready!')
-    });
