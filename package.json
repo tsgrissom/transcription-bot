@@ -1,0 +1,23 @@
+{
+  "name": "transcript-bot",
+  "version": "1.0.0",
+  "description": "Transcription bot for Discord",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grisstyl/TranscriptionBot.git"
+  },
+  "author": "Tyler Grissom",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/grisstyl/TranscriptionBot/issues"
+  },
+  "homepage": "https://github.com/grisstyl/TranscriptionBot#readme",
+  "dependencies": {
+    "discord.js": "^11.3.2",
+    "pastebin-js": "^0.5.1"
+  }
+}
