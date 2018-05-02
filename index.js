@@ -49,6 +49,12 @@ client.on('message', message => {
 try {
     config = yaml.safeLoad(fs.readFileSync('configuration.yml', 'utf8'));
 
+    if (!config) {
+        console.log('You must set up a configuration.yml!');
+
+        process.exit(1);
+    }
+
     pastebinKey = config.pastebinKey;
     botKey = config.botKey;
 } catch (e) {
