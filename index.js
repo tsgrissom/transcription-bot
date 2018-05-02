@@ -53,10 +53,10 @@ try {
         console.log('You must set up a configuration.yml!');
 
         process.exit(1);
+    }  else {
+        pastebinKey = config.pastebinKey;
+        botKey = config.botKey;
     }
-
-    pastebinKey = config.pastebinKey;
-    botKey = config.botKey;
 } catch (e) {
     console.log(e);
 }
