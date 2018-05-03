@@ -16,10 +16,11 @@ client.on('message', message => {
                 let text = "";
 
                 for (let [key, value] of messages) {
-                    text += `${value.author.tag}: ${value.content}\n`;
-                }
+                    const date = new Date(value.createdTimestamp);
+                    let dateString = `${date.getDate()}/${date.getMonth()} ${date.getHours()}h ${date.getMinutes()}m`;
 
-                console.log(text);
+                    text += `${value.author.tag} at ${dateString}: ${value.content}\n`;
+                }
 
                 pastebin.createPaste({
                         text: text,
