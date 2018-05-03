@@ -65,7 +65,7 @@ try {
             .then(() => {
                 pastebin = new PastebinAPI(pastebinKey);
 
-                console.log('Bot ready!')
+                console.log(`Bot logged in.`);
             });
     }
 } catch (e) {
