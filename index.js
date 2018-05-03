@@ -45,6 +45,10 @@ client.on('message', message => {
             .catch(err => {
                 console.log(`Failed to fetch messages: ${err}`);
             });
+
+        message.delete()
+            .then(() => console.log('Deleted message'))
+            .catch(err => console.log(`Could not delete message: ${err}`));
     }
 });
 
