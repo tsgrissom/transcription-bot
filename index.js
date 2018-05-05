@@ -6,7 +6,7 @@ const hastebin = require('hastebin-gen');
 
 client.on('message', message => {
     if (message.content.toLowerCase() === '-transcript') {
-        message.channel.fetchMessages()
+        message.channel.fetchMessages({limit: 250})
             .then(messages => {
                 let text = "";
 
