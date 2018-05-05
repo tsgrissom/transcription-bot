@@ -2,12 +2,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require('fs');
 const yaml = require('js-yaml');
-const PastebinAPI = require('pastebin-js');
-
-let config;
-let pastebinKey = '';
-let botKey = '';
-let pastebin = null;
+const hastebin = require('hastebin-gen');
 
 client.on('message', message => {
     if (message.content.toLowerCase() === '-transcript') {
@@ -22,25 +17,16 @@ client.on('message', message => {
                     text += `${value.author.tag} at ${dateString}: ${value.content}\n`;
                 }
 
-                pastebin.createPaste({
-                        text: text,
-                        title: "Transcript",
-                        format: null,
-                        privacy: 1
-                    })
-                    .then(data => {
-                        console.log(`Created paste: ${data}`);
+                hastebin(text, 'txt').then(data => {
+                    console.log(`Created hastebin: ${data}`);
 
-                        message.author.send(`Transcript: ${data}`)
-                            .then(() => console.log(`Sent user "${message.author.tag}" transcript.`))
-                            .catch((err) => {
-                                console.log(`Could not PM transcript, falling back to message in channel: ${err}`);
-                                message.reply(data).fail((err) => console.log(`Uh oh! Something went wrong: ${err}`));
-                            });
-                    })
-                    .fail(err => {
-                        console.log(`Failed to create paste: ${err}`);
-                    });
+                    message.author.send(`Transcript: ${data}`)
+                        .then(() => console.log(`Sent user "${message.author.tag}" transcript.`))
+                        .catch((err) => {
+                            console.log(`Could not PM transcript, falling back to message in channel: ${err}`);
+                            message.reply(data).fail((err) => console.log(`Uh oh! Something went wrong: ${err}`));
+                        });
+                });
             })
             .catch(err => {
                 console.log(`Failed to fetch messages: ${err}`);
@@ -53,21 +39,15 @@ client.on('message', message => {
 });
 
 try {
-    config = yaml.safeLoad(fs.readFileSync('configuration.yml', 'utf8'))
+    config = yaml.safeLoad(fs.readFileSync('configuration.yml', 'utf8'));
 
     if (typeof config === 'undefined') {
         console.log('You must set up a configuration.yml!');
     } else {
-        pastebinKey = config.pastebinKey;
         botKey = config.botKey;
 
-        client.login(botKey)
-            .then(() => {
-                pastebin = new PastebinAPI(pastebinKey);
-
-                console.log(`Bot logged in.`);
-            });
+        client.login(botKey).then(() => console.log('Bot ready!'));
     }
 } catch (e) {
-    console.log('Could not load configuration.yml, please model yours after configuration.example.yml');
+    console.log(`Could not load configuration.yml, please model yours after configuration.example.yml: ${e}`);
 }
