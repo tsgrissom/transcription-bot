@@ -1,8 +1,10 @@
 # TranscriptionBot
 
-This bot is a commission for Discord user *Garlic#6573*.
+> DISCLAIMER: This project's core dependencies, such as discord.js are no longer supported.
 
-The bot transcribes the whole chat into an unlisted Pastebin post through the `-transcript` command.
+Discord bot for transcribing chats which was for a commission from Discord user *Garlic#6573*.
+
+When `-transcript` is entered into a chat, this bot transcribes that chat's entire contents into an unlisted Pastebin post via the Pastebin API.
 
 [![Build Status](https://travis-ci.org/grisstyl/TranscriptionBot.svg?branch=master)](https://travis-ci.org/grisstyl/TranscriptionBot)
 
